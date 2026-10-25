@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Auto Compact"
+  short_description: "管理 Windows 本地文件压缩的周期、大小、目录和可选备份，保留原路径可读。"
+  default_prompt: "使用 $codex-auto-compact 检查我的本地压缩设置和下次到期时间。"

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "codex-auto-compact",
+  "version": "0.1.0",
+  "description": "Windows local transparent compression with a configurable schedule, file sizes, folders, and optional archive copies.",
+  "license": "MIT",
+  "keywords": ["windows", "ntfs", "compression", "offline", "codex"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Codex Auto Compact",
+        "shortDescription": "Windows 本地自动透明压缩，原路径继续可读",
+        "longDescription": "在 Windows NTFS 上按自定义间隔压缩本地文件，可设置大小范围、源目录、可选 ZIP/TAR.GZ 副本目录和压缩档位，并比较样本体积与耗时。内置独立计划任务，不依赖模型定时执行。",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "defaultPrompt": [
+          "检查本地压缩设置和预计到期时间。",
+          "帮我设置自动压缩的间隔、文件大小范围和文件夹。"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+name: Windows checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse Windows PowerShell sources
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $failures = @()
+          Get-ChildItem -LiteralPath . -Filter *.ps1 -Recurse | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            $null = [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors)
+            if ($errors.Count -gt 0) { $failures += $errors }
+          }
+          if ($failures.Count -gt 0) { $failures | Format-List; throw 'PowerShell syntax errors.' }
+      - name: Validate plugin metadata and required engine files
+        shell: powershell
+        run: ./tests/Validate-Package.ps1
+      - name: Test compression behavior
+        shell: powershell
+        run: ./tests/Integration.ps1
+      - name: Test ZIP and TAR.GZ archives independently
+        shell: powershell
+        run: ./tests/ArchiveFormats.ps1
+
+      - name: Test Runner format comparison and TAR.GZ integration
+        shell: powershell
+        run: ./tests/FormatComparison.ps1

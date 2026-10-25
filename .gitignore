@@ -1,0 +1,27 @@
+# Local state and private storage paths
+state.json
+state.json.*
+run.lock
+logs/
+formats-last.json
+compare-*/
+install-location.txt
+installation.json
+*.local.json
+config.local.json
+
+# Fixtures and generated deliverables
+work/
+test-output/
+*.zip
+*.tar.gz
+*.tmp
+*.partial
+*.log
+
+# Editors and operating system
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store

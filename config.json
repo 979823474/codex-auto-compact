@@ -1,0 +1,17 @@
+{
+  "SchemaVersion": 1,
+  "IntervalDays": 30,
+  "MinimumAgeHours": 24,
+  "MinimumBytes": 4096,
+  "MaximumBytes": 0,
+  "SessionRoots": [
+    "%USERPROFILE%\\.codex\\sessions",
+    "%USERPROFILE%\\.codex\\archived_sessions"
+  ],
+  "ProjectSearchRoots": ["%USERPROFILE%\\Documents\\Codex"],
+  "StaticRoots": [],
+  "ArchiveDirectory": "",
+  "ArchiveFormat": "ZIP",
+  "ArchiveCompression": "Optimal",
+  "MaxLogs": 24
+}

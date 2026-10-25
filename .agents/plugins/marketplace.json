@@ -1,0 +1,20 @@
+{
+  "name": "codex-auto-compact-marketplace",
+  "interface": {
+    "displayName": "Codex Auto Compact"
+  },
+  "plugins": [
+    {
+      "name": "codex-auto-compact",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
