@@ -75,6 +75,8 @@ Optional ZIP and TAR.GZ copies are separate backups. The originals remain in pla
 | ZIP copy | Widely supported; files are compressed individually | Adds a separate archive while retaining the originals |
 | TAR.GZ copy | Compresses a combined stream; similar text may compress better, but results vary | Adds a separate archive; extracting an individual file requires archive processing |
 
+TAR.GZ stores names in UTF-8 pax headers. Some Windows `tar.exe` builds cannot extract non-ASCII names in certain system locales. Use a UTF-8-aware extractor or choose ZIP if this occurs.
+
 Text often compresses well. Images, video, and existing archives usually offer less saving. The tool reports actual space changes instead of promising a fixed percentage.
 
 ### Compare formats on your files
@@ -140,7 +142,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tests\ArchiveFormats.p
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tests\FormatComparison.ps1
 ```
 
-The Windows GitHub Actions workflow parses the PowerShell sources and runs the tests. Tests cover compression behavior, content hashes, filtering, scheduling, locking, archive formats, and sample comparison in temporary folders. Passing CI does not mean a scheduled task has been installed or run on an end user's computer.
+The Windows GitHub Actions workflow parses the PowerShell sources and runs the tests. Tests cover compression behavior, content hashes, filtering, scheduling, locking, archive formats, and sample comparison in temporary folders. CI uses Python 3.13's standard `tarfile` module as an independent UTF-8-aware extractor (`ArchiveFormats.ps1 -TarExtractor Python`); local tests use Windows `tar.exe` by default. Python is a CI/test dependency only; the tool itself does not require Python. Passing CI does not mean a scheduled task has been installed or run on an end user's computer.
 
 Keep `Archive.ps1` with the rest of the tool: it provides the archive and comparison engine. Public source should contain generic defaults only. Do not commit personal paths, session contents, credentials, logs, `state.json`, installation records, or backup archives.
 

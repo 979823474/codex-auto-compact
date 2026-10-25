@@ -51,6 +51,8 @@ ChatGPT 网页中的云端资料库不属于本工具的处理范围。安装这
 | ZIP 副本 | 逐文件压缩，兼容方便 | 另存副本，原件仍占空间 |
 | TAR.GZ 副本 | 整包压缩，相似文本可能更小但不能保证；取单个文件需解包 | 另存副本，原件仍占空间 |
 
+TAR.GZ 使用 UTF-8 pax 文件名。部分 Windows `tar.exe` 版本在特定系统语言环境下无法解出中文等非 ASCII 文件名，遇到这种情况可用支持 UTF-8 的解包工具，或选择 ZIP。
+
 比较中的 `ArchiveBytes` 是压缩包文件的字节数，不含磁盘簇分配与文件系统元数据；`Seconds` 是单次打包实测耗时，会受缓存等运行条件影响。
 
 ## 工作方式
@@ -97,7 +99,7 @@ codex plugin add codex-auto-compact@codex-auto-compact-marketplace
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tests\Integration.ps1
 ```
 
-测试应使用独立临时文件夹，验证真实压缩前后的哈希、筛选、到期判断、锁处理和副本格式。`Archive.ps1` 是副本与比较功能的内置引擎，发布时须随工具一起提供。GitHub Actions 会在 Windows 上解析 PowerShell 源码并运行测试。CI 成功不代表用户机器上的计划任务已经安装或执行。
+测试应使用独立临时文件夹，验证真实压缩前后的哈希、筛选、到期判断、锁处理和副本格式。`Archive.ps1` 是副本与比较功能的内置引擎，发布时须随工具一起提供。GitHub Actions 会在 Windows 上解析 PowerShell 源码并运行测试；CI 使用 Python 3.13 标准库独立解包 TAR.GZ（`ArchiveFormats.ps1 -TarExtractor Python`），本地测试默认使用 Windows `tar.exe`。Python 只用于 CI／测试，日常工具无需安装 Python。CI 成功不代表用户机器上的计划任务已经安装或执行。
 
 公开仓库只保留通用默认配置。不要提交个人文件路径、会话内容、日志、`state.json`、安装定位文件或压缩备份。发布第一份 GitHub 项目的步骤见 [GitHub 发布指南](GitHub发布指南.md)。
 

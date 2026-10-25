@@ -1,7 +1,8 @@
 ﻿param(
     [string]$ArchiveModule = (Join-Path (Split-Path $PSScriptRoot -Parent) 'Archive.ps1'),
     [string]$WorkspaceRoot = (Join-Path ([IO.Path]::GetTempPath()) ('CodexAutoCompact.Archives-' + [guid]::NewGuid().ToString('N'))),
-    [string]$OtherRoot = ''
+    [string]$OtherRoot = '',
+    [ValidateSet('NativeTar','Python')][string]$TarExtractor = 'NativeTar'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -63,10 +64,17 @@ foreach ($format in @('ZIP','TAR.GZ')) {
         if ($format -eq 'ZIP') {
             [IO.Compression.ZipFile]::ExtractToDirectory($result.Path, $extract)
         } else {
-            $tar = Join-Path $env:SystemRoot 'System32\tar.exe'
-            if (-not [IO.File]::Exists($tar)) { throw 'Native tar.exe is required to independently verify the TAR.GZ writer.' }
-            $nativeOutput = @(& $tar -xzf $result.Path -C $extract 2>&1)
-            if ($LASTEXITCODE -ne 0) { throw ('Native tar extraction failed: ' + ($nativeOutput -join ' ')) }
+            if ($TarExtractor -eq 'Python') {
+                # Independent UTF-8-aware extractor for CI hosts whose native tar
+                # cannot represent non-ASCII pax paths in the current locale.
+                $python = Get-Command python -CommandType Application -ErrorAction Stop | Select-Object -First 1
+                $nativeOutput = @(& $python.Source -c 'import sys, tarfile; archive = tarfile.open(sys.argv[1], ''r:gz''); archive.extractall(path=sys.argv[2], filter=''data''); archive.close()' $result.Path $extract 2>&1)
+            } else {
+                $tar = Join-Path $env:SystemRoot 'System32\tar.exe'
+                if (-not [IO.File]::Exists($tar)) { throw 'Native tar.exe is required to independently verify the TAR.GZ writer.' }
+                $nativeOutput = @(& $tar -xzf $result.Path -C $extract 2>&1)
+            }
+            if ($LASTEXITCODE -ne 0) { throw ('TAR.GZ extraction failed (' + $TarExtractor + '): ' + ($nativeOutput -join ' ')) }
         }
         $extracted = @(Get-ChildItem -LiteralPath $extract -File -Recurse)
         Assert-ArchiveTest ($extracted.Count -eq $records.Count) 'Extraction has missing or duplicate files.'
@@ -99,6 +107,7 @@ Assert-ArchiveTest (-not (Get-AutoCompactFormatAvailability '7Z').Available) 'Un
 $summary = [ordered]@{
     TimestampUtc = [DateTimeOffset]::UtcNow.ToString('o')
     PowerShellVersion = $PSVersionTable.PSVersion.ToString()
+    TarExtractor = $TarExtractor
     AssertionsPassed = $script:Assertions
     WorkspaceRoot = $WorkspaceRoot
     OtherRoot = $OtherRoot
