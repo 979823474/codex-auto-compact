@@ -3,14 +3,16 @@
 [简体中文](README.md) | [English](README.en.md)
 
 [![Windows checks](https://github.com/979823474/codex-auto-compact/actions/workflows/windows.yml/badge.svg)](https://github.com/979823474/codex-auto-compact/actions/workflows/windows.yml)
-[![Release](https://img.shields.io/github/v/release/979823474/codex-auto-compact)](https://github.com/979823474/codex-auto-compact/releases/latest)
+[![Download ZIP](https://img.shields.io/badge/Download-ZIP-brightgreen)](https://codeload.github.com/979823474/codex-auto-compact/zip/refs/heads/main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 A local Windows compression tool and Codex skill plugin that helps reduce disk usage while keeping files at their original paths. Customize the interval, file size limits, and source folders, then let Windows Task Scheduler check when compression is due.
 
 The tool runs offline, needs no API key, and does not use recurring AI calls. This is an independent community project with no affiliation with OpenAI.
 
-**[Download v0.1.0 for Windows (ZIP)](https://github.com/979823474/codex-auto-compact/releases/download/v0.1.0/CodexAutoCompact-v0.1.0.zip)** · [Release notes and SHA256 checksum](https://github.com/979823474/codex-auto-compact/releases/tag/v0.1.0) · [Report an issue](https://github.com/979823474/codex-auto-compact/issues)
+**[Download for Windows (ZIP)](https://codeload.github.com/979823474/codex-auto-compact/zip/refs/heads/main)** · [v0.1.0 feature notes](docs/releases/v0.1.0.md) · [Report an issue](https://github.com/979823474/codex-auto-compact/issues)
+
+The download is the main branch source ZIP with ready-to-run scripts. Extract the entire archive; no build step is required. Release assets have not been published yet, and this ZIP changes when main is updated.
 
 ## Screenshots and sample results
 
@@ -46,7 +48,7 @@ This tool handles local Windows files. It cannot compress the cloud Library in C
 
 ## Quick start
 
-1. [Download the release ZIP](https://github.com/979823474/codex-auto-compact/releases/download/v0.1.0/CodexAutoCompact-v0.1.0.zip) and extract the entire folder. No build step is required.
+1. [Download the Windows ZIP](https://codeload.github.com/979823474/codex-auto-compact/zip/refs/heads/main), extract the entire archive, and open its **codex-auto-compact-main** folder. No build step is required.
 2. Double-click **打开工具.cmd** to open the tool. Choose menu **7** for settings: interval, file size range, source folders, and optional archive copies.
 3. Choose **8** to preview the files that match your settings.
 4. Choose **3** to compress now, or run **安装自动压缩.cmd** to install the automatic task.
