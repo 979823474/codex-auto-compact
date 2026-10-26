@@ -3,14 +3,16 @@
 [简体中文](README.md) | [English](README.en.md)
 
 [![Windows checks](https://github.com/979823474/codex-auto-compact/actions/workflows/windows.yml/badge.svg)](https://github.com/979823474/codex-auto-compact/actions/workflows/windows.yml)
-[![Release](https://img.shields.io/github/v/release/979823474/codex-auto-compact)](https://github.com/979823474/codex-auto-compact/releases/latest)
+[![Download ZIP](https://img.shields.io/badge/Download-ZIP-brightgreen)](https://codeload.github.com/979823474/codex-auto-compact/zip/refs/heads/main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 一个为 Windows 用户准备的本地自动压缩工具，也能作为 Codex 技能插件使用。自定义间隔、文件大小和处理目录，让本地资料与开发文件定期节省空间。文件还在原来的位置，扩展名、内容和日常打开方式保持一致；有本地文件访问权限的 GPT/Codex 可以继续读取。
 
 这是个人开源项目，与 OpenAI 无隶属关系。项目同时提供双击启动工具和 Codex 技能插件；自动压缩由 Windows 计划任务执行，不需要模型每月运行，也不需要 API 密钥。
 
-**[下载 v0.1.0 Windows ZIP](https://github.com/979823474/codex-auto-compact/releases/download/v0.1.0/CodexAutoCompact-v0.1.0.zip)** · [版本说明与 SHA256 校验文件](https://github.com/979823474/codex-auto-compact/releases/tag/v0.1.0) · [反馈问题](https://github.com/979823474/codex-auto-compact/issues)
+**[下载 Windows 工具（ZIP）](https://codeload.github.com/979823474/codex-auto-compact/zip/refs/heads/main)** · [v0.1.0 功能说明](docs/releases/v0.1.0.md) · [反馈问题](https://github.com/979823474/codex-auto-compact/issues)
+
+当前下载为 main 分支源码 ZIP，已包含启动脚本，完整解压即可使用，无需编译。正式 Release 附件尚未发布；此下载包会随 main 分支更新。
 
 ## 界面与实测
 
@@ -46,7 +48,7 @@ ChatGPT 网页中的云端资料库不属于本工具的处理范围。安装这
 
 ## 开始使用
 
-1. [下载发布包](https://github.com/979823474/codex-auto-compact/releases/download/v0.1.0/CodexAutoCompact-v0.1.0.zip)，完整解压到一个文件夹。无需编译。
+1. [下载 Windows ZIP](https://codeload.github.com/979823474/codex-auto-compact/zip/refs/heads/main)，完整解压，然后打开其中的 **codex-auto-compact-main** 文件夹。无需编译。
 2. 双击 **打开工具.cmd**，进入设置，选择间隔天数、文件大小范围和要压缩的文件夹；需要额外备份时选择保存目录、格式和压缩档位。
 3. 先运行扫描预览，再按需要立即压缩，或安装自动任务。
 
