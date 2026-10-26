@@ -2,9 +2,39 @@
 
 [简体中文](README.md) | [English](README.en.md)
 
+[![Windows checks](https://github.com/979823474/codex-auto-compact/actions/workflows/windows.yml/badge.svg)](https://github.com/979823474/codex-auto-compact/actions/workflows/windows.yml)
+[![Release](https://img.shields.io/github/v/release/979823474/codex-auto-compact)](https://github.com/979823474/codex-auto-compact/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 一个为 Windows 用户准备的本地自动压缩工具，也能作为 Codex 技能插件使用。自定义间隔、文件大小和处理目录，让本地资料与开发文件定期节省空间。文件还在原来的位置，扩展名、内容和日常打开方式保持一致；有本地文件访问权限的 GPT/Codex 可以继续读取。
 
 这是个人开源项目，与 OpenAI 无隶属关系。项目同时提供双击启动工具和 Codex 技能插件；自动压缩由 Windows 计划任务执行，不需要模型每月运行，也不需要 API 密钥。
+
+**[下载 v0.1.0 Windows ZIP](https://github.com/979823474/codex-auto-compact/releases/download/v0.1.0/CodexAutoCompact-v0.1.0.zip)** · [版本说明与 SHA256 校验文件](https://github.com/979823474/codex-auto-compact/releases/tag/v0.1.0) · [反馈问题](https://github.com/979823474/codex-auto-compact/issues)
+
+## 界面与实测
+
+在设置窗口中选择间隔天数、文件大小范围、来源文件夹和可选副本的保存路径：
+
+![设置窗口：自定义压缩间隔、文件筛选、归档格式与保存路径](docs/images/settings.png)
+
+格式比较的一次本机实测：**64 个文件，原始 15,909,531 字节（15.17 MiB），Optimal 档位**。
+
+| 副本格式 | 压缩后大小 | 占原始大小 | 节省比例 | 单次耗时 |
+| --- | --- | --- | --- | --- |
+| ZIP | 3,600,105 字节（3.43 MiB） | 22.63% | 77.37% | 0.464 秒 |
+| TAR.GZ | 3,575,739 字节（3.41 MiB） | 22.48% | 77.52% | 0.420 秒 |
+
+这组数据仅代表该样本，不保证其他文件或整个资料库的压缩效果。表格记录的是**额外归档副本**，原件保留，因此目标目录会额外占用这些空间；节省源盘空间使用 NTFS 原地透明压缩。
+
+<details>
+<summary>查看格式比较窗口</summary>
+
+![格式比较窗口示例](docs/images/formats.png)
+
+此图使用另一个仅含 2 个小文件、约 0.09 MiB 的界面演示样本，图中的 99.3% 不是上表的实测结果，也不代表整个资料库。
+
+</details>
 
 ## 适用环境
 
@@ -16,7 +46,7 @@ ChatGPT 网页中的云端资料库不属于本工具的处理范围。安装这
 
 ## 开始使用
 
-1. 下载项目 ZIP，完整解压到一个文件夹。
+1. [下载发布包](https://github.com/979823474/codex-auto-compact/releases/download/v0.1.0/CodexAutoCompact-v0.1.0.zip)，完整解压到一个文件夹。无需编译。
 2. 双击 **打开工具.cmd**，进入设置，选择间隔天数、文件大小范围和要压缩的文件夹；需要额外备份时选择保存目录、格式和压缩档位。
 3. 先运行扫描预览，再按需要立即压缩，或安装自动任务。
 

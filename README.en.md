@@ -2,9 +2,39 @@
 
 [简体中文](README.md) | [English](README.en.md)
 
+[![Windows checks](https://github.com/979823474/codex-auto-compact/actions/workflows/windows.yml/badge.svg)](https://github.com/979823474/codex-auto-compact/actions/workflows/windows.yml)
+[![Release](https://img.shields.io/github/v/release/979823474/codex-auto-compact)](https://github.com/979823474/codex-auto-compact/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A local Windows compression tool and Codex skill plugin that helps reduce disk usage while keeping files at their original paths. Customize the interval, file size limits, and source folders, then let Windows Task Scheduler check when compression is due.
 
 The tool runs offline, needs no API key, and does not use recurring AI calls. This is an independent community project with no affiliation with OpenAI.
+
+**[Download v0.1.0 for Windows (ZIP)](https://github.com/979823474/codex-auto-compact/releases/download/v0.1.0/CodexAutoCompact-v0.1.0.zip)** · [Release notes and SHA256 checksum](https://github.com/979823474/codex-auto-compact/releases/tag/v0.1.0) · [Report an issue](https://github.com/979823474/codex-auto-compact/issues)
+
+## Screenshots and sample results
+
+Choose the interval, file size limits, source folders, and optional archive destination in the settings window. The current interface is in Simplified Chinese:
+
+![Settings window with interval, file filters, archive format, and destination controls](docs/images/settings.png)
+
+One local comparison used **64 files totaling 15,909,531 bytes (15.17 MiB), with the Optimal level**:
+
+| Archive format | Resulting size | Percentage of original | Saved | Single-run time |
+| --- | --- | --- | --- | --- |
+| ZIP | 3,600,105 bytes (3.43 MiB) | 22.63% | 77.37% | 0.464 s |
+| TAR.GZ | 3,575,739 bytes (3.41 MiB) | 22.48% | 77.52% | 0.420 s |
+
+These results apply only to that sample, not to other files or an entire library. The table measures **additional archive copies**: originals are retained, so the destination uses this extra space. NTFS transparent compression is the feature that reduces space on the source volume.
+
+<details>
+<summary>View the format comparison window</summary>
+
+![Example format comparison window](docs/images/formats.png)
+
+This screenshot uses a different demonstration sample of only 2 small files, about 0.09 MiB. Its 99.3% figure is not the result in the table above and does not represent an entire library.
+
+</details>
 
 ## Requirements
 
@@ -16,7 +46,7 @@ This tool handles local Windows files. It cannot compress the cloud Library in C
 
 ## Quick start
 
-1. Download the repository ZIP and extract the entire folder.
+1. [Download the release ZIP](https://github.com/979823474/codex-auto-compact/releases/download/v0.1.0/CodexAutoCompact-v0.1.0.zip) and extract the entire folder. No build step is required.
 2. Double-click **打开工具.cmd** to open the tool. Choose menu **7** for settings: interval, file size range, source folders, and optional archive copies.
 3. Choose **8** to preview the files that match your settings.
 4. Choose **3** to compress now, or run **安装自动压缩.cmd** to install the automatic task.
